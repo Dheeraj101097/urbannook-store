@@ -1,6 +1,7 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 import { X, MapPin, CreditCard, Package, Globe, Camera } from "lucide-react";
 import OrderStatusBadge from "./OrderStatusBadge";
+import ShipmentSection from "./ShipmentSection";
 
 // Instagram orders have customerName; website orders have userId
 function ChannelBadge({ isInstagram }) {
@@ -317,6 +318,17 @@ export default function OrderDetailDrawer({ order, onClose }) {
                   )}
               </div>
             </section>
+          )}
+
+          {/*   Shipment (Shipmozo)     */}
+          {order.orderId && (
+            <div className="pt-2 border-t border-gray-100">
+              <ShipmentSection
+                key={order.orderId}
+                orderId={order.orderId}
+                orderType={isInstagram ? "INSTAGRAM" : "WEBSITE"}
+              />
+            </div>
           )}
         </div>
       </aside>

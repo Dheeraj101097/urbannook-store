@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const { login, logout } = require("../controllers/auth");
 const { verifyAuth } = require("../middleware/auth");
+const shipmozoRoutes = require("./shipmozo");
 const {
   getAllProducts,
   addProduct,
@@ -90,6 +91,9 @@ router.get("/orders/stream", verifyAuth, streamOrders);
 router.get("/orders/instagram", verifyAuth, getAllInstagramOrders);
 router.get("/orders/instagram/stream", verifyAuth, streamInstagramOrders);
 router.post("/orders/instagram", verifyAuth, createInstagramOrder);
+
+// Shipmozo shipping routes (verifyAuth applied to entire sub-router)
+router.use("/shipmozo", verifyAuth, shipmozoRoutes);
 
 // Protected coupon routes
 router.post("/coupon/create", verifyAuth, createCoupon);
